@@ -1,6 +1,6 @@
-package second.dec.two
+package two
 
-import java.io.File
+import INPUT
 import java.lang.IllegalArgumentException
 
 enum class CubeColor {
@@ -108,14 +108,14 @@ class Game (line: String) {
     }
 }
 
-class Games (filepath: String) {
-    private val games: List<Game> = File(javaClass.getResource(filepath)!!.path)
-        .readLines()
+class Games (input: String) {
+    private val games: List<Game> = input
+        .split("\n")
         .map(::Game)
 
     fun getSumOfPowerOfGameMinValues() = games.sumOf { it.powerOfMinValues() }
 }
 
 fun main() {
-    println(Games("../input.txt").getSumOfPowerOfGameMinValues())
+    println(Games(INPUT).getSumOfPowerOfGameMinValues())
 }
