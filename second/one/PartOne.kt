@@ -1,6 +1,6 @@
-package second.dec.one
+package one
 
-import java.io.File
+import INPUT
 import java.lang.IllegalArgumentException
 
 enum class CubeColor {
@@ -98,11 +98,11 @@ class Game (line: String, private val rules: Rules) {
 }
 
 class Games (
-    filepath: String,
+    input: String,
     rules: Rules
 ) {
-    private val games: List<Game> = File(javaClass.getResource(filepath)!!.path)
-        .readLines()
+    private val games: List<Game> = input
+        .split("\n")
         .map { Game(it, rules) }
 
     fun getSumOfValidGameIds() = games
@@ -111,8 +111,9 @@ class Games (
 }
 
 fun main() {
-    println(Games(
-        "../input.txt",
+    println(
+        Games(
+        INPUT,
         Rules(
             colorMaxCount = mapOf(
                 CubeColor.RED to 12,

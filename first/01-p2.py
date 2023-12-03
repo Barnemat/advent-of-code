@@ -31,7 +31,7 @@ def get_sum_for_lines(lines):
 
 
 def get_sum_for_file():
-    with open('./input.txt') as f:
+    with open('input.txt') as f:
         return get_sum_for_lines(f)
 
 
