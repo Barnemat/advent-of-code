@@ -1,6 +1,6 @@
-package two
+package third.src.two
 
-import INPUT
+import second.INPUT
 
 private val STAR_SYMBOL_REGEX = Regex("\\*")
 

@@ -1,6 +1,6 @@
-package one
+package third.src.one
 
-import INPUT
+import second.INPUT
 
 private val SYMBOL_REGEX = Regex("[^\\d.]")
 

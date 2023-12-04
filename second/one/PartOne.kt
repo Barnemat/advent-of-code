@@ -1,6 +1,6 @@
 package one
 
-import INPUT
+import second.INPUT
 import java.lang.IllegalArgumentException
 
 enum class CubeColor {
