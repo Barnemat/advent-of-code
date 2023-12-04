@@ -17,20 +17,19 @@ data class Card(
         .fold(0) { acc, _ -> if (acc == 0) 1 else acc * 2 }
 
     companion object {
-        fun String.toWinningNumbers(): List<Int> =
-            split(": ")[1]
-                .toNumbers(0)
+        fun String.toWinningNumbers(): List<Int> = pruneGameString()
+            .toNumbers(0)
 
-        fun String.toNumbers(): List<Int> =
-            split(": ")[1]
-                .toNumbers(1)
+        fun String.toNumbers(): List<Int> = pruneGameString()
+            .toNumbers(1)
 
-        private fun String.toNumbers(index: Int): List<Int> =
-            split("|")[index]
-                .split(" ")
-                .map(String::trim)
-                .filter { it.isNotEmpty() }
-                .map { it.trim().toInt() }
+        private fun String.pruneGameString(): String = split(": ")[1]
+
+        private fun String.toNumbers(index: Int): List<Int> = split("|")[index]
+            .split(" ")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .map { it.trim().toInt() }
     }
 }
 

@@ -1,6 +1,7 @@
 package two
 
 import INPUT
+import two.Card.Companion.numberOfWonCards
 
 class Card private constructor(
     private val winningNumbers: List<Int>,
@@ -18,67 +19,55 @@ class Card private constructor(
         .filter { it in winningNumbers }
         .size
 
-    fun addCards(cards: List<Card>) {
-        wonCards.addAll(cards)
-    }
+    fun addCards(cards: List<Card>) { wonCards.addAll(cards) }
 
     companion object {
-        fun numberOfWonCards(cards: List<Card>): Int = if (cards.isNotEmpty()) {
-            cards.size + numberOfWonCards(
-                cards.flatMap { it.wonCards }
-            )
-        } else {
-            0
-        }
+        fun List<Card>.numberOfWonCards(): Int = if (isNotEmpty()) {
+            flatMap { it.wonCards }.numberOfWonCards() + size
+        } else 0
 
-        fun String.toWinningNumbers(): List<Int> =
-            split(": ")[1]
-                .toNumbers(0)
+        fun String.toWinningNumbers(): List<Int> = pruneGameString()
+            .toNumbers(0)
 
-        fun String.toNumbers(): List<Int> =
-            split(": ")[1]
-                .toNumbers(1)
+        fun String.toNumbers(): List<Int> = pruneGameString()
+            .toNumbers(1)
 
-        private fun String.toNumbers(index: Int): List<Int> =
-            split("|")[index]
-                .split(" ")
-                .map(String::trim)
-                .filter { it.isNotEmpty() }
-                .map { it.trim().toInt() }
+        private fun String.pruneGameString(): String = split(": ")[1]
+
+        private fun String.toNumbers(index: Int): List<Int> = split("|")[index]
+            .split(" ")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .map { it.trim().toInt() }
     }
 }
 
 class Cards(input: String) {
     private var cards = input
         .split("\n")
-        .map { Card(it) }
+        .map(::Card)
 
     init {
         populateWonCards()
     }
 
-    fun getSumOfWonCards(): Int = Card.numberOfWonCards(cards)
+    fun getSumOfWonCards(): Int = cards.numberOfWonCards()
 
     private fun populateWonCards() {
-        val reversedCards = cards
-            .reversed()
+        val reversedCards = cards.reversed()
 
         reversedCards
             .forEachIndexed { index, card ->
-                val winning = card.numbersInWinning()
-                val fromIndex = (index - winning).let {
-                    if (it < 0) 0 else it
-                }
+                val winningNumbers = card.numbersInWinning()
+                val fromIndex = (index - winningNumbers).let { if (it < 0) 0 else it }
 
                 card.addCards(reversedCards.subList(fromIndex, index))
             }
 
-        cards = reversedCards.reversed()
+        cards = reversedCards.reversed() // Not really needed, but nice for consistency
     }
 }
 
 fun main() {
-    println(
-        Cards(INPUT).getSumOfWonCards()
-    )
+    println(Cards(INPUT).getSumOfWonCards())
 }
