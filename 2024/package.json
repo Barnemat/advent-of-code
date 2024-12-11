@@ -17,7 +17,8 @@
     "run:7": "tsx src/7/part-two.ts",
     "run:8": "tsx src/8/part-two.ts",
     "run:9": "tsx src/9/part-two.ts",
-    "run:10": "tsx src/10/part-two.ts"
+    "run:10": "tsx src/10/part-two.ts",
+    "run:11": "tsx src/11/part-two.ts"
   },
   "author": "Sondre Søberg",
   "license": "MIT",
@@ -32,6 +33,7 @@
     "eslint": "^9.16.0",
     "globals": "^15.13.0",
     "npm-run-all2": "^7.0.1",
+    "prettier": "^3.4.2",
     "tsx": "^4.19.2",
     "typescript-eslint": "^8.16.0"
   }
