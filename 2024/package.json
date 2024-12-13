@@ -19,7 +19,8 @@
     "run:9": "tsx src/9/part-two.ts",
     "run:10": "tsx src/10/part-two.ts",
     "run:11": "tsx src/11/part-two.ts",
-    "run:12": "tsx src/12/part-two.ts"
+    "run:12": "tsx src/12/part-two.ts",
+    "run:13": "tsx src/13/part-two.ts"
   },
   "author": "Sondre Søberg",
   "license": "MIT",
