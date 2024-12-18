@@ -6,14 +6,14 @@ export interface TwoDimensionalMap<T> {
 
 export const generateTwoDimensionalMap = <T, V>(
   input: T[][],
-  transform: (value: T) => V,
+  transform: (value: T, i: number, j: number) => V,
   pruneUndefinedValues?: boolean,
   pruneEmptyObjects?: boolean,
 ): TwoDimensionalMap<V> =>
   input.reduce((acc: TwoDimensionalMap<V>, value: T[], i: number) => {
     const innerRes = value.reduce(
       (innerAcc: Record<number, V>, innerVal: T, j: number) => {
-        const transformed = transform(innerVal);
+        const transformed = transform(innerVal, i, j);
 
         if (
           (pruneUndefinedValues && transformed !== undefined) ||
