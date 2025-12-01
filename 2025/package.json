@@ -1,0 +1,26 @@
+{
+  "name": "aoc-2025",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier --check .",
+    "lint:ts": "tsc --noEmit",
+    "run:1": "tsx src/1/2.ts"
+  },
+  "author": "Sondre Søberg",
+  "license": "MIT",
+  "devDependencies": {
+    "@sikt/eslint-config-sds": "^2.2.5",
+    "@sikt/prettier-config-sds": "^1.0.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.38.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.7.3",
+    "tsx": "^4.21.0",
+    "typescript-eslint": "^8.48.0"
+  }
+}
