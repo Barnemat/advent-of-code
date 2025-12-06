@@ -8,7 +8,7 @@
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "lint:ts": "tsc --noEmit",
-    "run": "tsx src/5/1.ts"
+    "run": "tsx src/6/2.ts"
   },
   "author": "Sondre Søberg",
   "license": "MIT",
