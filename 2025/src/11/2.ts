@@ -1,8 +1,10 @@
 import { INPUT_11 } from "@/src/11/input";
 import { sum } from "@/src/utils/sum";
-import memoize from "memoize";
 
-const parseInput = (input: string): Map<string, string[]> => {
+type Lines = Map<string, string[]>;
+type SeenPaths = Map<string, number>;
+
+const parseInput = (input: string): Lines => {
   const lines = new Map();
 
   input.split("\n").forEach((line) => {
@@ -14,28 +16,47 @@ const parseInput = (input: string): Map<string, string[]> => {
   return lines;
 };
 
-const lines = parseInput(INPUT_11);
+const exploreNode = (
+  lines: Lines,
+  seenPaths: SeenPaths,
+  from: string,
+  dac: boolean = false,
+  fft: boolean = false,
+): number => {
+  const seen = seenPaths.get(`${from}${dac}${fft}`);
 
-// With memoize cheat codes
-const exploreNode = memoize(
-  (from: string, dac: boolean = false, fft: boolean = false): number => {
-    const nodesToExplore = lines.get(from);
+  if (seen !== undefined) return seen;
 
-    if (from === "out" || !nodesToExplore) {
-      if (dac && fft) return 1;
+  const nodesToExplore = lines.get(from);
 
-      return 0;
-    }
+  if (from === "out" || !nodesToExplore) {
+    if (dac && fft) return 1;
 
-    return sum(
-      ...nodesToExplore.map((node) =>
-        exploreNode(node, dac || node === "dac", fft || node === "fft"),
+    return 0;
+  }
+
+  const res = sum(
+    ...nodesToExplore.map((node) =>
+      exploreNode(
+        lines,
+        seenPaths,
+        node,
+        dac || node === "dac",
+        fft || node === "fft",
       ),
-    );
-  },
-  {
-    cacheKey: (arguments_) => arguments_.join(),
-  },
-);
+    ),
+  );
 
-console.log(exploreNode("svr"));
+  seenPaths.set(`${from}${dac}${fft}`, res);
+
+  return res;
+};
+
+const run = (input: string) => {
+  const lines = parseInput(input);
+  const seen = new Map<string, number>();
+
+  console.log(exploreNode(lines, seen, "svr"));
+};
+
+run(INPUT_11);
